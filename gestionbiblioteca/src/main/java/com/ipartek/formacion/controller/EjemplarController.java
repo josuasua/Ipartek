@@ -91,4 +91,9 @@ public class EjemplarController {
 		
 		return destino; // ofuscacion de URL
 	}
+	
+	@RequestMapping(value="/restclients", method=RequestMethod.GET)
+	public String sendToRestGetAll(){
+		return "/ejemplares/listado_rest";
+	}
 }
