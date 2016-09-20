@@ -20,14 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ipartek.formacion.dao.persistence.Ejemplar;
-import com.ipartek.formacion.dao.persistence.Usuario;
 import com.ipartek.formacion.service.EjemplarServiceImp;
 
 @Controller
 @RequestMapping(value="/ejemplares")
 public class EjemplarController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
+	private static final Logger logger = LoggerFactory.getLogger(EjemplarController.class);
 	@Autowired
 	private EjemplarServiceImp ejemImp = null;
 	private ModelAndView mav = null;
