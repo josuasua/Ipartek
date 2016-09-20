@@ -4,5 +4,32 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean name="mysqlDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/gestionbiblioteca"></property>
+		<property name="username" value="josu"></property>
+		<property name="password" value="josu"></property>	
+	</bean>
+	<bean id="usuarioDAOImp" class="com.ipartek.formacion.dao.UsuarioDAOImp">
+		<property name="dataSource" ref="mysqlDataSource"></property>
+	</bean>	
+
+	<bean id="usuarioServiceImp" class="com.ipartek.formacion.service.UsuarioServiceImp">
+		<property name="alumDAO" ref="alumnoDAOImp"></property>
+	</bean>
+	<bean id="ejemplarDAOImp" class="com.ipartek.formacion.dao.EjemplarDAOImp">
+		<property name="dataSource" ref="mysqlDataSource"></property>
+	</bean>	
+
+	<bean id="ejemplarServiceImp" class="com.ipartek.formacion.service.EjemplarServiceImp">
+		<property name="curDAO" ref="cursoDAOImp"></property>
+	</bean>
+	<bean id="libroDAOImp" class="com.ipartek.formacion.dao.LibroDAOImp">
+		<property name="dataSource" ref="mysqlDataSource"></property>
+	</bean>	
+
+	<bean id="libroServiceImp" class="com.ipartek.formacion.service.LibroServiceImp">
+		<property name="modDAO" ref="libroDAOImp"></property>
+	</bean>
 		
 </beans>
