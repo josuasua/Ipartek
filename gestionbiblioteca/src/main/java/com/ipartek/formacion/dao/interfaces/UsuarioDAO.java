@@ -2,6 +2,8 @@ package com.ipartek.formacion.dao.interfaces;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import com.ipartek.formacion.dao.persistence.Usuario;
 
 public interface UsuarioDAO{
@@ -15,4 +17,6 @@ public interface UsuarioDAO{
 	public Usuario update(Usuario usuario);
 
 	public void delete(int id);
+	
+	public void setDataSource(DataSource dataSource);
 }
