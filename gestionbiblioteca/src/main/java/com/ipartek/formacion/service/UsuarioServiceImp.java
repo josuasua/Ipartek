@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ipartek.formacion.dao.UsuarioDAOImp;
 import com.ipartek.formacion.dao.interfaces.UsuarioDAO;
 import com.ipartek.formacion.dao.persistence.Usuario;
 import com.ipartek.formacion.service.interfaces.UsuarioService;
@@ -44,6 +45,12 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public Usuario create(Usuario usuario) {
 		return usuDAO.create(usuario);
+	}
+
+	@Override
+	public void setUsuDAO(UsuarioDAOImp usuDAO) {
+		this.usuDAO = usuDAO;
+		
 	}
 
 }

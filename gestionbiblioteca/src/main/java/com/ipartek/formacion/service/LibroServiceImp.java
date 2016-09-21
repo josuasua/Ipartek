@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ipartek.formacion.dao.LibroDAOImp;
 import com.ipartek.formacion.dao.interfaces.LibroDAO;
 import com.ipartek.formacion.dao.persistence.Libro;
 import com.ipartek.formacion.service.interfaces.LibroService;
@@ -43,6 +44,12 @@ public class LibroServiceImp implements LibroService {
 	public Libro create(Libro libro) {
 		
 		return libDAO.create(libro);
+	}
+
+	@Override
+	public void setLibDAO(LibroDAOImp libDAO) {
+		this.libDAO = libDAO;
+		
 	}
 
 }

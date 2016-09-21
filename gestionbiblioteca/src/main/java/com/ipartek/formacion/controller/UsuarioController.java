@@ -61,7 +61,7 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value="/addUsuario", method=RequestMethod.GET)
-	public String addEjemplar(Model model){
+	public String addUsuario(Model model){
 		model.addAttribute("usuario", new Usuario());
 		return "usuarios/usuario";
 	}

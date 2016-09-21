@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ipartek.formacion.dao.EjemplarDAOImp;
 import com.ipartek.formacion.dao.interfaces.EjemplarDAO;
 import com.ipartek.formacion.dao.persistence.Ejemplar;
 import com.ipartek.formacion.service.interfaces.EjemplarService;
@@ -42,6 +43,12 @@ public class EjemplarServiceImp implements EjemplarService {
 	@Override
 	public Ejemplar create(Ejemplar ejemplar) {
 		return ejemDAO.create(ejemplar);
+	}
+
+	@Override
+	public void setEjemDAO(EjemplarDAOImp ejemDAO) {
+		this.ejemDAO = ejemDAO;
+		
 	}
 
 }

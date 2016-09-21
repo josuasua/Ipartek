@@ -2,6 +2,7 @@ package com.ipartek.formacion.service.interfaces;
 
 import java.util.List;
 
+import com.ipartek.formacion.dao.LibroDAOImp;
 import com.ipartek.formacion.dao.persistence.Libro;
 
 public interface LibroService {
@@ -15,4 +16,6 @@ public interface LibroService {
 	public void delete(int id);
 	
 	public Libro create (Libro libro);
+	
+	public void setLibDAO(LibroDAOImp libDAO);
 }

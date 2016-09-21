@@ -1,38 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@page import="com.ipartek.formacion.dao.persistence.Libro"%>
+<%@page import="java.util.List"%>
 
-<spring:url value="/resources/css/bootstrap.min.css" var="cssBootstrap" />
-<spring:url value="/resources/css/font-awesome.min.css" var="cssFont" />
-<spring:url value="/resources/css/styles.css" var="cssStyle" />
-<spring:url value="/resources/js/bootstrap.min.js" var="jsBootstrap" />
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<jsp:include page="../includes/header.jsp"/><!-- Aqui se compila previamente, tiene codigo java, se tiene que meter en el include.
+Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
+<main>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Gestión biblioteca Ipartek</title>
-<!-- CARGAMOS LOS BASICOS DE BOOTSTRAP -->
-<link rel="stylesheet" href="${cssBootstrap}" />
-<!-- CARGAMOS LAS FUENTES -->
-<link rel="stylesheet" href="${cssFont}">
-<!-- CARGAMOS NUESTROS ESTILOS -->
-<link rel="stylesheet" href="${cssStyle}">
-<!-- CARGAMOS JQUERY -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- CARGAMOS LAS LIBRERIAS JS DE BOOTSTRAP -->
-<script src="${jsBootstrap}"></script>
-<script src="${cssFont}"></script>
-<script src="${cssStyle}"></script>
+<a class="btn btn-success" href="libros/addLibro">Crear libro</a>
+<a class="btn btn-success" href="libros/restclients">Usando Rest</a>
 
-</head>
-<body>
+
+
+<%List<Libro>libros=(List<Libro>)request.getAttribute("listado-libros");
+	if(libros!=null){%>
+<div class="row">
+	<div class="col-xs-12">
+		<div id="libros">
+			<table class="table">
+				<div class="row"><div class="col-xs-4">Titulo</div><div class="col-xs-4">Autor</div><div class="col-xs-2">ISBN</div></div>
+		<%for(Libro libro: libros){%>
+
+				<div class="row">
+					<div class="col-xs-4"> <%=libro.getTitulo() %></div>
+					<div class="col-xs-4"> <%=libro.getAutor() %></div>
+					<div class="col-xs-2"> <%=libro.getIsbn() %> </div>
+					<div class="col-xs-1"><a class="editar btn btn-warning" href="libros/<%=libro.getId()%>">Editar</a></div>				
+					<div class="col-xs-1"><a class="editar btn btn-danger" href="libros/deleteLibro/<%=libro.getId()%>">Borrar</a></div>
+				</div>
+
+<%
+		}
+	}else{
+		%><p>No se han encontrado libros en la base de datos.</p><%
+	}%>
+
+</table></div></div></div>
 
 </body>
 </html>

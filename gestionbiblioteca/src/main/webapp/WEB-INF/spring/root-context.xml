@@ -22,7 +22,7 @@
 	</bean>	
 
 	<bean id="ejemplarServiceImp" class="com.ipartek.formacion.service.EjemplarServiceImp">
-		<property name="ejemDAO" ref="emplarDAOImp"></property>
+		<property name="ejemDAO" ref="ejemplarDAOImp"></property>
 	</bean>
 	<bean id="libroDAOImp" class="com.ipartek.formacion.dao.LibroDAOImp">
 		<property name="dataSource" ref="mysqlDataSource"></property>

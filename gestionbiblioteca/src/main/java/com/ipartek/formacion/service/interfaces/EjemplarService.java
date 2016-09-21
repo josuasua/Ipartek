@@ -2,6 +2,7 @@ package com.ipartek.formacion.service.interfaces;
 
 import java.util.List;
 
+import com.ipartek.formacion.dao.EjemplarDAOImp;
 import com.ipartek.formacion.dao.persistence.Ejemplar;
 
 public interface EjemplarService {
@@ -15,5 +16,7 @@ public interface EjemplarService {
 	public void delete(int id);
 	
 	public Ejemplar create (Ejemplar ejemplar);
+	
+	public void setEjemDAO (EjemplarDAOImp ejemDAO);
 
 }

@@ -8,12 +8,14 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dao.interfaces.LibroDAO;
+import com.ipartek.formacion.dao.mappers.LibroMapper;
 import com.ipartek.formacion.dao.persistence.Libro;
 
 
@@ -23,14 +25,14 @@ public class LibroDAOImp implements LibroDAO {
 	@Autowired
 	private DataSource dataSource;
 
-	//private JdbcTemplate jdbcTemplate; //usamos todo el rato rutinas, lo tenemos por si algo falla.
+	private JdbcTemplate jdbcTemplate; //usamos todo el rato rutinas, lo tenemos por si algo falla.
 	private SimpleJdbcCall jdbcCall;
 	
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
-		//this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		this.jdbcCall = new SimpleJdbcCall(dataSource);
 
 	}
@@ -38,16 +40,24 @@ public class LibroDAOImp implements LibroDAO {
 	@Override
 	public List<Libro> getAll() {
 		List<Libro> libros = null;
+		/*
 		jdbcCall.withProcedureName("getAllLibro");
 		SqlParameterSource in = new MapSqlParameterSource();
+		
 		try{
 			Map<String, Object> out = jdbcCall.execute(in);
-			libros = (List<Libro>) out;
+			System.out.println("hola?");
+			libros = (List<Libro>) out;*/
+		final String SQL = "SELECT id, titulo, autor, isbn FROM libro";
+		try {
+			libros = jdbcTemplate.query(SQL, new LibroMapper());
 		}catch(EmptyResultDataAccessException e){
 			libros = new ArrayList<Libro>();
+			System.out.println("falla");
 		}catch (Exception e){
 			
 		}
+		
 		return libros;
 	}
 
@@ -59,7 +69,7 @@ public class LibroDAOImp implements LibroDAO {
 			.addValue("autor", libro.getAutor())
 			.addValue("isbn",libro.getIsbn());
 		Map<String, Object> out =jdbcCall.execute(in);
-		libro.setId((Integer) out.get("id"));
+		libro.setId((Integer) out.get("codigo"));
 				/*
 				 * SqlparameterSource es la clase de tipo Map en la cual se guardan los parametros del procedimiento almacenado.
 				 * execute lanza la sentencia. en el out obtendremos la respuestas
@@ -69,6 +79,7 @@ public class LibroDAOImp implements LibroDAO {
 
 	@Override
 	public Libro getByID(int id) {
+		/*
 		jdbcCall.withProcedureName("getbyIDLibro");
 		Libro libro = null;
 		SqlParameterSource in = new MapSqlParameterSource().addValue("id", id);
@@ -79,7 +90,19 @@ public class LibroDAOImp implements LibroDAO {
 			libro = new Libro();
 		}catch (Exception e){
 			
+		}*/
+		
+		Libro libro = null;
+
+		final String SQL = "SELECT id, titulo, autor, isbn FROM libro WHERE id=?";
+		try {
+			libro = jdbcTemplate.queryForObject(SQL, new Object[] { id }, new LibroMapper());
+		} catch (EmptyResultDataAccessException e) {
+			libro = new Libro();
+		} catch (Exception e) {
+
 		}
+
 		return libro;
 	}
 
@@ -87,8 +110,8 @@ public class LibroDAOImp implements LibroDAO {
 	public Libro update(Libro libro) {
 		
 		jdbcCall.withProcedureName("updateLibro"); // usando las rutinas / procedures creadas en la BBDD
-		
 		SqlParameterSource in = new MapSqlParameterSource()
+			.addValue("codigo", libro.getId())
 			.addValue("titulo", libro.getTitulo())
 			.addValue("autor", libro.getAutor())
 			.addValue("isbn",libro.getIsbn());
