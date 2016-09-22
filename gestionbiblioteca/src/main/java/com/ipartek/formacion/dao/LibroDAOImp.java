@@ -111,7 +111,7 @@ public class LibroDAOImp implements LibroDAO {
 		
 		jdbcCall.withProcedureName("updateLibro"); // usando las rutinas / procedures creadas en la BBDD
 		SqlParameterSource in = new MapSqlParameterSource()
-			.addValue("codigo", libro.getId())
+			.addValue("cod", libro.getId())
 			.addValue("titulo", libro.getTitulo())
 			.addValue("autor", libro.getAutor())
 			.addValue("isbn",libro.getIsbn());
@@ -125,7 +125,7 @@ public class LibroDAOImp implements LibroDAO {
 		
 		jdbcCall.withProcedureName("deleteLibro"); // usando las rutinas / procedures creadas en la BBDD
 		
-		SqlParameterSource in = new MapSqlParameterSource().addValue("id", id);
+		SqlParameterSource in = new MapSqlParameterSource().addValue("codigo", id);
 		Map<String, Object> out =jdbcCall.execute(in);
 
 	}

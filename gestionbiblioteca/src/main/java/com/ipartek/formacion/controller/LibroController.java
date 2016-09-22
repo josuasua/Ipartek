@@ -60,7 +60,7 @@ public class LibroController {
 	}
 	
 	@RequestMapping(value="/addLibro", method=RequestMethod.GET)
-	public String addEjemplar(Model model){
+	public String addLibro(Model model){
 		model.addAttribute("libro", new Libro());
 		return "libros/libro";
 	}
@@ -72,7 +72,7 @@ public class LibroController {
 	}
 	
 	@RequestMapping(value="/save")
-	public String saveEjemplar(@ModelAttribute("libro") @Validated(Libro.class) Libro libro, BindingResult bindingResult){
+	public String saveLibro(@ModelAttribute("libro") @Validated(Libro.class) Libro libro, BindingResult bindingResult){
 		//el objeto del model attribute se llama igual que el commandName del formulario, ser� lo que recibir� encapsulado
 		//@Validated se usa para obligar a validar los datos a guardar
 		String destino ="";

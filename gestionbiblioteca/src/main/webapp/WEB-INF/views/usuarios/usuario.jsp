@@ -1,18 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
-<%@page import="com.ipartek.formacion.dao.persistence.Usuario"%>
-<%@page import="java.util.List"%>
-
-    
 <jsp:include page="../includes/header.jsp"/><!-- Aqui se compila previamente, tiene codigo java, se tiene que meter en el include.
 Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
 <main>
 
 <form:form action="save" commandName="usuario">
@@ -53,7 +48,8 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 		<form:label path="fNacimiento">
 			<spring:message text="Fecha de nacimiento: " />
 		</form:label>
-		<form:input type="date" path="fNacimiento" value="${usuario.fNacimiento }" readonly="" size="50" disabled="" cssErrorClass="" />
+		<!--<form:input type="calendar" path="fNacimiento" value="${usuario.fNacimiento }" readonly="" size="50" disabled="" cssErrorClass="" />-->
+		
 		<form:errors cssClass="" path="fNacimiento" />
 		
 	</div>
@@ -65,7 +61,7 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 		<form:errors cssClass="" path="password" />
 		
 	</div>
-
+		
 	<div>
 		<c:if test="${usuario.id > 0}">
 			<button class="col-xs-2 btn btn-success">Editar usuario</button>
@@ -76,7 +72,6 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 	</div>
 
 </form:form>
-
 
 </body>
 </html>
