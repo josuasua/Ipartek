@@ -48,7 +48,7 @@ public class LibroDAOImp implements LibroDAO {
 			Map<String, Object> out = jdbcCall.execute(in);
 			System.out.println("hola?");
 			libros = (List<Libro>) out;*/
-		final String SQL = "SELECT id, titulo, autor, isbn FROM libro";
+		final String SQL = "SELECT idLibro, titulo, autor, isbn FROM libro";
 		try {
 			libros = jdbcTemplate.query(SQL, new LibroMapper());
 		}catch(EmptyResultDataAccessException e){

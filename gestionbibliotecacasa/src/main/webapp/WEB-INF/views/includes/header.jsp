@@ -19,12 +19,6 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-   $("#datepicker").datepicker();
-});
-</script>
-
 </head>
 <body class="container-fluid">
 <nav class="navbar navbar-inverse">
@@ -37,6 +31,7 @@ $(document).ready(function() {
       <li><a href="<c:url value='/usuarios'/>">Usuarios</a></li>
       <li><a href="<c:url value='/libros'/>">Libros</a></li>
       <li><a href="<c:url value='/ejemplares'/>">Ejemplares</a></li>
+      <li><a href="<c:url value='/reservas'/>">Reservas</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

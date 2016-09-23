@@ -8,13 +8,17 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dao.interfaces.EjemplarDAO;
+import com.ipartek.formacion.dao.mappers.EjemplarMapper;
+import com.ipartek.formacion.dao.mappers.LibroMapper;
 import com.ipartek.formacion.dao.persistence.Ejemplar;
+import com.ipartek.formacion.dao.persistence.Libro;
 
 @Repository
 public class EjemplarDAOImp implements EjemplarDAO {
@@ -22,14 +26,14 @@ public class EjemplarDAOImp implements EjemplarDAO {
 	@Autowired
 	private DataSource dataSource;
 
-	//private JdbcTemplate jdbcTemplate; //usamos todo el rato rutinas, lo tenemos por si algo falla.
+	private JdbcTemplate jdbcTemplate; //usamos todo el rato rutinas, lo tenemos por si algo falla.
 	private SimpleJdbcCall jdbcCall;
 	
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
-		//this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		this.jdbcCall = new SimpleJdbcCall(dataSource);
 
 	}
@@ -103,6 +107,23 @@ public class EjemplarDAOImp implements EjemplarDAO {
 		SqlParameterSource in = new MapSqlParameterSource().addValue("id", id);
 		Map<String, Object> out =jdbcCall.execute(in);
 
+	}
+
+	@Override
+	public List<Ejemplar> getAllDisponibles() {
+		List<Ejemplar> ejemplares = null;
+		
+		final String SQL = "SELECT e.idEjemplar, l.titulo, l.autor, e.editorial, e.numeropaginas, e.contador FROM ejemplar e INNER JOIN libro l ON e.idLibro=l.idLibro WHERE e.contador > 0";
+		try {
+			ejemplares = jdbcTemplate.query(SQL, new EjemplarMapper());
+		}catch(EmptyResultDataAccessException e){
+			ejemplares = new ArrayList<Ejemplar>();
+			System.out.println("falla");
+		}catch (Exception e){
+			
+		}
+		
+		return ejemplares;
 	}
 
 }

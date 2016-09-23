@@ -9,6 +9,8 @@ import com.ipartek.formacion.dao.persistence.Ejemplar;
 public interface EjemplarDAO {
 
 	public List<Ejemplar> getAll();
+	
+	public List<Ejemplar> getAllDisponibles();
 
 	public Ejemplar create(Ejemplar ejemplar);
 

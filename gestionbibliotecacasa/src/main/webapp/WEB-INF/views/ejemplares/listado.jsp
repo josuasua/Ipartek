@@ -18,7 +18,7 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 	if(ejemplares!=null){%>
 <div class="row">
 	<div class="col-xs-12">
-		<div id="libros">
+		<div id="ejemplares">
 			<table class="table">
 				<div class="row"><div class="col-xs-4">Editorial</div><div class="col-xs-4">Numero de paginas</div></div>
 	<%
@@ -27,8 +27,8 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 				<div class="row">
 					<div class="col-xs-4"> <%=ejemplar.getEditorial() %></div>
 					<div class="col-xs-4"> <%=ejemplar.getNumeropaginas() %></div>
-					<div class="col-xs-1"><button class="editar btn btn-warning" href="libros/<%=ejemplar.getId() %>">Editar</button></div>
-					<div class="col-xs-1"><button class="borrar btn btn-danger" href="libros/deleteLibro/<%=ejemplar.getId() %>">Borrar</button></div>
+					<div class="col-xs-1"><button class="editar btn btn-warning" href="ejemplares/<%=ejemplar.getId() %>">Editar</button></div>
+					<div class="col-xs-1"><button class="borrar btn btn-danger" href="ejemplares/deleteEjemplar/<%=ejemplar.getId() %>">Borrar</button></div>
 				</div>
 
 <%

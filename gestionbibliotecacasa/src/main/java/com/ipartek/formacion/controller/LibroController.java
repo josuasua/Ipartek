@@ -24,13 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ipartek.formacion.dao.persistence.Libro;
 import com.ipartek.formacion.service.LibroServiceImp;
 
-/*
- * 	BEGIN
-	INSERT INTO `libro`(`titulo`, `autor`, `isbn`) VALUES (LOWER(titulo),LOWER(autor),LOWER(isbn));
-	SET codigo = LAST_INSERT_ID();
-	END
- */
-
 @Controller
 @RequestMapping(value="/libros")
 public class LibroController {

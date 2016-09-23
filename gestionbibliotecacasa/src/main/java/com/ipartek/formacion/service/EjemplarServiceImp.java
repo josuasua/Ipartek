@@ -51,4 +51,10 @@ public class EjemplarServiceImp implements EjemplarService {
 		
 	}
 
+	@Override
+	public List<Ejemplar> getAllDisponible() {
+		List<Ejemplar> ejemplares = ejemDAO.getAllDisponibles();
+		return ejemplares;
+	}
+
 }

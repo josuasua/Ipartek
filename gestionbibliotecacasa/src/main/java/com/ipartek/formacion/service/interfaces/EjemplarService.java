@@ -8,6 +8,8 @@ import com.ipartek.formacion.dao.persistence.Ejemplar;
 public interface EjemplarService {
 	
 	public List<Ejemplar> getAll();
+	
+	public List<Ejemplar> getAllDisponible();
 
 	public Ejemplar getByID(int id);
 

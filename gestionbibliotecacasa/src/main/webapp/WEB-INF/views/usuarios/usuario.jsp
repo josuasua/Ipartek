@@ -51,7 +51,7 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 		<form:label path="fNacimiento">
 			<spring:message text="Fecha de nacimiento: " />
 		</form:label>
-		<!--<form:input type="" path="fNacimiento" value="${usuario.fNacimiento }" readonly="" size="50" disabled="" cssErrorClass="" />-->
+		<form:input type="" path="fNacimiento" value="${usuario.fNacimiento }" readonly="" size="50" disabled="" cssErrorClass="" />
 		
 		<form:errors cssClass="" path="fNacimiento" />
 		

@@ -31,7 +31,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioServiceImp usuImp = null;
 	private ModelAndView mav = null;
-	
+	/*
 	@Autowired
 	@Qualifier("usuarioValidator")
 	private Validator validator;
@@ -40,7 +40,7 @@ public class UsuarioController {
 	private void InitBinder(WebDataBinder binder){
 		binder.setValidator(validator);
 	}
-	
+	*/
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
 
@@ -54,16 +54,11 @@ public class UsuarioController {
 	public ModelAndView getByID(@PathVariable("id") int id) {
 		mav = new ModelAndView("usuarios/usuario");
 		Usuario usuario = usuImp.getByID(id);
+		System.out.println(usuario.getId());
 		mav.addObject("usuario", usuario);
 		return mav;
 	}
-
-	@RequestMapping(value="/Calendario")
-	public String calendario(Model model){
-		model.addAttribute("usuario", new Usuario());
-		return "usuarios/Calendario";
-	}
-	
+	/*
 	@RequestMapping(value="/addUsuario", method=RequestMethod.GET)
 	public String addUsuario(Model model){
 		model.addAttribute("usuario", new Usuario());
@@ -102,5 +97,5 @@ public class UsuarioController {
 	public String sendToRestGetAll(){
 		return "/usuarios/listado_rest";
 	}
-
+	*/
 }

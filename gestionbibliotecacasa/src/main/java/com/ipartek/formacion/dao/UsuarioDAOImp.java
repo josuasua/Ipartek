@@ -15,6 +15,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dao.interfaces.UsuarioDAO;
+import com.ipartek.formacion.dao.mappers.LibroMapper;
+import com.ipartek.formacion.dao.mappers.UsuarioMapper;
+import com.ipartek.formacion.dao.persistence.Libro;
 import com.ipartek.formacion.dao.persistence.Usuario;
 
 @Repository
@@ -23,14 +26,14 @@ public class UsuarioDAOImp implements UsuarioDAO {
 	@Autowired
 	private DataSource dataSource;
 
-	//private JdbcTemplate jdbcTemplate; //usamos todo el rato rutinas, lo tenemos por si algo falla.
+	private JdbcTemplate jdbcTemplate; //usamos todo el rato rutinas, lo tenemos por si algo falla.
 	private SimpleJdbcCall jdbcCall;
 
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
-		//this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		this.jdbcCall = new SimpleJdbcCall(dataSource);
 
 	}
@@ -38,6 +41,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 	@Override
 	public List<Usuario> getAll() {
 		List<Usuario> usuarios = null;
+		/*
 		jdbcCall.withProcedureName("getAllUsuario");
 		SqlParameterSource in = new MapSqlParameterSource();
 		try{
@@ -47,6 +51,17 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			usuarios = new ArrayList<Usuario>();
 		}catch (Exception e){
 			
+		}
+		*/
+		
+		final String SQL = "SELECT idUsuario, nombre, apellidos FROM usuario";
+		try {
+			usuarios = jdbcTemplate.query(SQL, new UsuarioMapper());
+		}catch(EmptyResultDataAccessException e){
+			usuarios = new ArrayList<Usuario>();
+			System.out.println("falla");
+		}catch (Exception e){
+			System.out.println("falla");
 		}
 		return usuarios;
 	}
@@ -62,7 +77,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			.addValue("email", usuario.getEmail());
 		Map<String, Object> out =jdbcCall.execute(in);
 		
-		usuario.setId((Integer) out.get("id"));
+		usuario.setId((Integer) out.get("idUsuario"));
 				/*
 				 * SqlparameterSource es la clase de tipo Map en la cual se guardan los parametros del procedimiento almacenado.
 				 * execute lanza la sentencia. en el out obtendremos la respuestas
@@ -74,7 +89,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 	public Usuario getByID(int id) {
 		jdbcCall.withProcedureName("getbyIDUsuario");
 		Usuario usuario = null;
-		SqlParameterSource in = new MapSqlParameterSource().addValue("id", id);
+		SqlParameterSource in = new MapSqlParameterSource().addValue("idUsuario", id);
 		try{
 			Map<String, Object> out = jdbcCall.execute(in);
 			usuario = (Usuario) out;

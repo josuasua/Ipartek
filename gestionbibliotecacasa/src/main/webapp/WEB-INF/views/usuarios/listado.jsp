@@ -19,19 +19,22 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 
 <%List<Usuario>usuarios=(List<Usuario>)request.getAttribute("listado-usuarios");
 	if(usuarios!=null){%>
+	
 <div class="row">
 	<div class="col-xs-12">
-		<div id="libros">
+		<div id="usuarios">
 			<table class="table">
 				<div class="row"><div class="col-xs-4">Nombre</div><div class="col-xs-4">Apellidos</div></div>
-	<%
+	<% 
 		for(Usuario usuario: usuarios){%>
 
 				<div class="row">
 					<div class="col-xs-4"> <%=usuario.getNombre() %></div>
 					<div class="col-xs-4"> <%=usuario.getApellidos() %></div>
-					<div class="col-xs-1"><button class="editar btn btn-warning" href="libros/<%=usuario.getId() %>">Editar</button></div>
-					<div class="col-xs-1"><button class="borrar btn btn-danger" href="libros/deleteLibro/<%=usuario.getId() %>">Borrar</button></div>
+					<div class="col-xs-1"><a class="reservar btn btn-info" href="reservas/<%=usuario.getId() %>">Reservar libro</a></div>
+					<div class="col-xs-1"><a class="editar btn btn-warning" href="usuarios/<%=usuario.getId() %>">Editar</a></div>
+					<div class="col-xs-1"><a class="borrar btn btn-danger" href="usuarios/deleteUsuario/<%=usuario.getId() %>">Borrar</a></div>
+					
 				</div>
 
 <%

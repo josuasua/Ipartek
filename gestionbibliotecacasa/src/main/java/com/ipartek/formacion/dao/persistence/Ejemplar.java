@@ -1,10 +1,20 @@
 package com.ipartek.formacion.dao.persistence;
 
-public class Ejemplar {
+public class Ejemplar extends Libro{
 	
 	private String editorial;
 	private int id;
 	private int numeropaginas;
+	private int contador;
+	
+	
+
+	public int getContador() {
+		return contador;
+	}
+	public void setContador(int contador) {
+		this.contador = contador;
+	}
 	public String getEditorial() {
 		return editorial;
 	}
@@ -28,12 +38,14 @@ public class Ejemplar {
 		setId(0);
 		setEditorial("");
 		setNumeropaginas(0);
+		setContador(0);
 	}
-	public Ejemplar(String editorial, int id, int numeropaginas) {
+	public Ejemplar(String editorial, int id, int numeropaginas, int contador) {
 		super();
 		this.editorial = editorial;
 		this.id = id;
 		this.numeropaginas = numeropaginas;
+		this.contador = contador;
 	}
 
 }

@@ -14,7 +14,7 @@ import com.ipartek.formacion.service.interfaces.UsuarioService;
 public class UsuarioServiceImp implements UsuarioService {
 	
 	@Autowired
-	UsuarioDAO usuDAO;
+	UsuarioDAOImp usuDAO;
 
 	@Override
 	public List<Usuario> getAll() {
