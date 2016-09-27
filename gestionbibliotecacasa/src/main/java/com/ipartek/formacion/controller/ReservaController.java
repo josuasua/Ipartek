@@ -66,22 +66,35 @@ public class ReservaController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/reservarLibro/{idusuario}/{idejemplar}", method = RequestMethod.GET)
+	@RequestMapping(value = "/reservarLibro/{idusuario}/{idejemplar}/", method = RequestMethod.GET)
 	public ModelAndView EjemplarReservado(@PathVariable("idusuario") int idusuario,@PathVariable("{idejemplar}") int idejemplar){
 		//llamada para realizar reserva en la base de datos
-		int contador = 0;
 		System.out.println(idusuario);
 		System.out.println(idejemplar);
-		Ejemplar ejemplar = ejem.getByID(idusuario);
-		contador = contador -1;
+		Ejemplar ejemplar = null;
+		ejemplar.setUsuario(usu.getByID(idusuario));
 		ejem.update(ejemplar);
 		mav = new ModelAndView("usuarios/listado");
 		List<Usuario> usuarios = usu.getAll();
 		mav.addObject("listado-usuarios", usuarios);
 
 		return mav;
-		
-		
-		
+
+	}
+	
+	@RequestMapping(value = "/devolverLibro/{idusuario}/{idejemplar}", method = RequestMethod.GET)
+	public ModelAndView EjemplarDevuelto(@PathVariable("idusuario") int idusuario,@PathVariable("{idejemplar}") int idejemplar){
+		//llamada para realizar reserva en la base de datos
+		System.out.println(idusuario);
+		System.out.println(idejemplar);
+		Ejemplar ejemplar = null;
+		ejemplar.setUsuario(usu.getByID(0));
+		ejem.update(ejemplar);
+		mav = new ModelAndView("usuarios/listado");
+		List<Usuario> usuarios = usu.getAll();
+		mav.addObject("listado-usuarios", usuarios);
+
+		return mav;
+
 	}
 }
