@@ -57,4 +57,9 @@ public class EjemplarServiceImp implements EjemplarService {
 		return ejemplares;
 	}
 
+	public Ejemplar getEjemplarReservado(int id) {
+		Ejemplar ejemplar = ejemDAO.getEjemplarReservado(id);
+		return ejemplar;
+	}
+
 }

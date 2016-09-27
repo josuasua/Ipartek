@@ -12,16 +12,7 @@ public class Usuario {
 	private String password;
 	private Date fNacimiento;
 	private int id;
-	private int idEjemplar;
 	
-	
-	
-	public int getIdEjemplar() {
-		return idEjemplar;
-	}
-	public void setIdEjemplar(int idEjemplar) {
-		this.idEjemplar = idEjemplar;
-	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -62,7 +53,6 @@ public class Usuario {
 	public Usuario() {
 		super();
 		setId(0);
-		setIdEjemplar(0);
 		setNombre("");
 		setApellidos("");
 		setEmail("");
@@ -71,7 +61,7 @@ public class Usuario {
 	}
 	
 	public Usuario(String nombre, String apellidos, String email,
-			String password, Date fNacimiento, int id, int idEjemplar) {
+			String password, Date fNacimiento, int id) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -79,7 +69,6 @@ public class Usuario {
 		this.password = password;
 		this.fNacimiento = fNacimiento;
 		this.id = id;
-		this.idEjemplar = idEjemplar;
 	}
 
 }

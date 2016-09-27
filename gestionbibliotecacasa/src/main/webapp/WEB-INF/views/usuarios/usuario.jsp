@@ -14,8 +14,8 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 <main>
 
 <form:form action="save" commandName="usuario">
-	<c:if test="${usuario.id > 0}">
-		<div>
+	<c:if test="${usuario.id} > 0">
+		<div class="form-group">
 			<form:label path="id">
 				<spring:message text="id" />
 			</form:label>
@@ -23,49 +23,43 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 			<form:hidden path="id" />
 		</div>
 	</c:if>
-	<div>
+	<div class="form-group">
 		<form:label path="nombre">
-			<spring:message text="Nombre: " />
-		</form:label>
-		<form:input path="nombre" value="${usuario.nombre }" readonly="" size="10" disabled="" cssErrorClass="" />
+					<spring:message text="Nombre: " />:
+				</form:label>
+		<form:input path="nombre" readonly="" size="10" disabled="" cssErrorClass=""/>
 		<form:errors cssClass="" path="nombre" />
-		
 	</div>
-	<div>
+	<div class="form-group">
 		<form:label path="apellidos">
 			<spring:message text="Apellidos: " />
 		</form:label>
-		<form:input path="apellidos" value="${usuario.apellidos }" readonly="" size="10" disabled="" cssErrorClass="" />
+		<form:input path="apellidos" readonly="" size="10" disabled="" cssErrorClass="" />
 		<form:errors cssClass="" path="apellidos" />
-		
-	</div>	
-	<div>
+	</div>
+	<div class="form-group">
 		<form:label path="email">
 			<spring:message text="Email: " />
 		</form:label>
-		<form:input path="email" value="${usuario.email }" readonly="" size="50" disabled="" cssErrorClass="" />
+		<form:input path="email" readonly="" size="10" disabled="" cssErrorClass="" />
 		<form:errors cssClass="" path="email" />
-		
 	</div>
-	<div>
-		<form:label path="fNacimiento">
-			<spring:message text="Fecha de nacimiento: " />
-		</form:label>
-		<form:input type="" path="fNacimiento" value="${usuario.fNacimiento }" readonly="" size="50" disabled="" cssErrorClass="" />
-		
-		<form:errors cssClass="" path="fNacimiento" />
-		
-	</div>
-		<div>
+	<div class="form-group">
 		<form:label path="password">
 			<spring:message text="Password: " />
 		</form:label>
-		<form:input type="password" path="password" value="${usuario.password }" readonly="" size="10" disabled="" cssErrorClass="" />
+		<form:input type="password" path="password" readonly="" size="10" disabled="" cssErrorClass="" />
 		<form:errors cssClass="" path="password" />
-		
+	</div>
+	<div class="form-group">
+		<form:label path="fNacimiento" cssClass="sr-only">
+			<spring:message text="Fecha de Nacimiento: " />
+		</form:label>
+		<form:input path="fNacimiento" placeholder="dd/MM/yyyy" readonly="" size="10" disabled="" cssErrorClass="" />
+		<form:errors cssClass="" path="fNacimiento" />
 	</div>
 		
-	<div>
+	<div class="form-group">
 		<c:if test="${usuario.id > 0}">
 			<button class="col-xs-2 btn btn-success">Editar usuario</button>
 		</c:if>

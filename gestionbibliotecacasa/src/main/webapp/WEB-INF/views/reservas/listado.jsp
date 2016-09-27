@@ -15,34 +15,56 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 
 
 <%List<Ejemplar>ejemplares=(List<Ejemplar>)request.getAttribute("listado-ejemplares");
-
-	if(ejemplares!=null){%>
-<div class="row">
-	<div class="col-xs-12">
-		<div id="reservas">
-			<table class="table">
-				<div class="row"><div class="col-xs-3">Autor</div><div class="col-xs-3">Titulo</div><div class="col-xs-3">Editorial</div><div class="col-xs-1">Numero de paginas</div></div>
-	<%
-		for(Ejemplar ejemplar: ejemplares){%>
-
+	Ejemplar ejemplar = (Ejemplar)request.getAttribute("ejemplar");
+	if(ejemplar!=null){%>
+	<div class="row">
+		<div class="col-xs-12">
+			<div id="reservas">
+				<table class="table">
+					<div class="row"><div class="col-xs-3">Autor</div><div class="col-xs-3">Titulo</div><div class="col-xs-3">Editorial</div><div class="col-xs-1">Numero de paginas</div></div>
 				<div class="row">
-					
-					<div class="col-xs-3"> <%=ejemplar.getAutor() %></div>
-					<div class="col-xs-3"> <%=ejemplar.getTitulo() %></div>
-					<div class="col-xs-3"> <%=ejemplar.getEditorial() %></div>
-					<div class="col-xs-1"> <%=ejemplar.getNumeropaginas() %></div>
-					<c:if test="${usuario.idEjemplar > 0}">
-						<div class="col-xs-1"><a class="devolver btn btn-success" href="reservas/devolverLibro/${usuario.id}/<%=ejemplar.getId() %>">Devolver libro</a></div>					
-					</c:if>
-					<c:if test="${usuario.idEjemplar == 0}">
-						<div class="col-xs-1"><a class="reservar btn btn-success" href="reservas/reservarLibro/${usuario.id}/<%=ejemplar.getId() %>">Reservar libro</a></div>
-					</c:if>
-				</div>
+						
+						<div class="col-xs-3"> <%=ejemplar.getAutor() %></div>
+						<div class="col-xs-3"> <%=ejemplar.getTitulo() %></div>
+						<div class="col-xs-3"> <%=ejemplar.getEditorial() %></div>
+						<div class="col-xs-1"> <%=ejemplar.getNumeropaginas() %></div>
+						<c:if test="${ejemplar.usuario.id > 0}">
+							<div class="col-xs-1"><a class="devolver btn btn-success" href="reservas/devolverLibro/${usuario.id}/<%=ejemplar.getId() %>">Devolver libro</a></div>					
+						</c:if>
+						<c:if test="${ejemplar.usuario.id == 0}">
+							<div class="col-xs-1"><a class="reservar btn btn-success" href="reservas/reservarLibro/${usuario.id}/<%=ejemplar.getId() %>">Reservar libro</a></div>
+						</c:if>
+					</div>
+				<%
+			
+		}else{
+				if(ejemplares!=null){%>
+	<div class="row">
+		<div class="col-xs-12">
+			<div id="reservas">
+				<table class="table">
+					<div class="row"><div class="col-xs-3">Autor</div><div class="col-xs-3">Titulo</div><div class="col-xs-3">Editorial</div><div class="col-xs-1">Numero de paginas</div></div>
+		<%
+			for(Ejemplar ejemplar1: ejemplares){%>
 
-<%
-		}
-	}else{
+					<div class="row">
+						
+						<div class="col-xs-3"> <%=ejemplar1.getAutor() %></div>
+						<div class="col-xs-3"> <%=ejemplar1.getTitulo() %></div>
+						<div class="col-xs-3"> <%=ejemplar1.getEditorial() %></div>
+						<div class="col-xs-1"> <%=ejemplar1.getNumeropaginas() %></div>
+						<c:if test="${ejemplar1.usuario.id > 0}">
+							<div class="col-xs-1"><a class="devolver btn btn-success" href="reservas/devolverLibro/${usuario.id}/<%=ejemplar.getId() %>">Devolver libro</a></div>					
+						</c:if>
+						<c:if test="${ejemplar1.usuario.id == 0}">
+							<div class="col-xs-1"><a class="reservar btn btn-success" href="reservas/reservarLibro/${usuario.id}/<%=ejemplar.getId() %>">Reservar libro</a></div>
+						</c:if>
+					</div>
+
+			<%}
+			}else{
 		%><p>No se han encontrado reservas en la base de datos.</p><%
+			}
 	}%>
 
 </table></div></div></div>

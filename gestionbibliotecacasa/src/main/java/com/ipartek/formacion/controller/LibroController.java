@@ -29,6 +29,7 @@ import com.ipartek.formacion.service.LibroServiceImp;
 public class LibroController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LibroController.class);
+	
 	@Autowired
 	private LibroServiceImp libImp = null;
 	private ModelAndView mav = null;

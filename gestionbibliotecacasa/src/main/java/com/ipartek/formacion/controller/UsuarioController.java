@@ -18,20 +18,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.ipartek.formacion.dao.persistence.Usuario;
-import com.ipartek.formacion.service.UsuarioServiceImp;
+import com.ipartek.formacion.service.interfaces.UsuarioService;
 
 
+@RequestMapping("/usuarios")
 @Controller
-@RequestMapping(value = "/usuarios")
 public class UsuarioController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
+	
 	@Autowired
-	private UsuarioServiceImp usuImp = null;
-	private ModelAndView mav = null;
-	/*
+	private UsuarioService as;
+	private ModelAndView mav;
+	
 	@Autowired
 	@Qualifier("usuarioValidator")
 	private Validator validator;
@@ -40,35 +40,34 @@ public class UsuarioController {
 	private void InitBinder(WebDataBinder binder){
 		binder.setValidator(validator);
 	}
-	*/
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
 
 		mav = new ModelAndView("usuarios/listado");
-		List<Usuario> usuarios = usuImp.getAll();
+		List<Usuario> usuarios = as.getAll();
 		mav.addObject("listado-usuarios", usuarios);
 		return mav;
 	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ModelAndView getByID(@PathVariable("id") int id) {
-		mav = new ModelAndView("usuarios/usuario");
-		Usuario usuario = usuImp.getByID(id);
-		System.out.println(usuario.getId());
-		mav.addObject("usuario", usuario);
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	public ModelAndView getById(@PathVariable("id") int id) {
+		mav = new ModelAndView("/usuarios/usuario");
+		mav.addObject("usuario", as.getByID(id));
 		return mav;
 	}
-	/*
-	@RequestMapping(value="/addUsuario", method=RequestMethod.GET)
-	public String addUsuario(Model model){
-		model.addAttribute("usuario", new Usuario());
-		return "usuarios/usuario";
-	}
-	
-	@RequestMapping(value = "deleteUsuario/{id}")
-	public String delete(@PathVariable("id") int id) {	
-		usuImp.delete(id);	
+
+	@RequestMapping(method = RequestMethod.GET, value = "/delete/{id}")
+	public String delete(@PathVariable("id") int id) {
+		as.delete(id);
 		return "redirect:/usuarios";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/addUsuario")
+	public ModelAndView createUsuario() {
+		mav = new ModelAndView("/usuarios/usuario");
+		mav.addObject("usuario", new Usuario());
+		return mav;
 	}
 
 	@RequestMapping(value="/save")
@@ -84,18 +83,19 @@ public class UsuarioController {
 		}else{
 			destino = "redirect:/usuarios";
 			if(usuario.getId()>0){
-				usuImp.update(usuario);
+				as.update(usuario);
 			}else{
-				usuImp.create(usuario);
+				as.create(usuario);
 			}
 		}
 		
 		return destino; // ofuscacion de URL
 	}
-	
+
+
 	@RequestMapping(value="/restclients", method=RequestMethod.GET)
 	public String sendToRestGetAll(){
 		return "/usuarios/listado_rest";
 	}
-	*/
+	
 }

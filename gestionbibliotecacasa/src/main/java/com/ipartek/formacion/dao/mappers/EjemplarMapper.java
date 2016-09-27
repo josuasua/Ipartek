@@ -13,11 +13,11 @@ public class EjemplarMapper implements RowMapper<Ejemplar> {
 	public Ejemplar mapRow(ResultSet rs, int arg1) throws SQLException {
 		Ejemplar ejemplar = null;
 		ejemplar = new Ejemplar();
-		ejemplar.setId(rs.getInt("idEjemplar"));
-		ejemplar.setAutor(rs.getString("autor"));
-		ejemplar.setTitulo(rs.getString("titulo"));
-		ejemplar.setEditorial(rs.getString("editorial"));
-		ejemplar.setNumeropaginas(rs.getInt("numeropaginas"));
+		ejemplar.setId(rs.getInt("e.idEjemplar"));
+		ejemplar.setAutor(rs.getString("l.autor"));
+		ejemplar.setTitulo(rs.getString("l.titulo"));
+		ejemplar.setEditorial(rs.getString("e.editorial"));
+		ejemplar.setNumeropaginas(rs.getInt("e.numeropaginas"));
 		
 		return ejemplar;
 	}

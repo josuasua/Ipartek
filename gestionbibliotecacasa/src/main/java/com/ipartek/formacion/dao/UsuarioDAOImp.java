@@ -54,7 +54,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		}
 		*/
 		
-		final String SQL = "SELECT idUsuario, nombre, apellidos FROM usuario";
+		final String SQL = "SELECT idUsuario, nombre, apellidos, email, password, fNacimiento FROM usuario";
 		try {
 			usuarios = jdbcTemplate.query(SQL, new UsuarioMapper());
 		}catch(EmptyResultDataAccessException e){
@@ -87,16 +87,30 @@ public class UsuarioDAOImp implements UsuarioDAO {
 
 	@Override
 	public Usuario getByID(int id) {
-		jdbcCall.withProcedureName("getbyIDUsuario");
+		/*jdbcCall.withProcedureName("getByIDUsuario");
 		Usuario usuario = null;
-		SqlParameterSource in = new MapSqlParameterSource().addValue("idUsuario", id);
+		System.out.println(id);
+		SqlParameterSource in = new MapSqlParameterSource().addValue("codigo", id);
 		try{
 			Map<String, Object> out = jdbcCall.execute(in);
 			usuario = (Usuario) out;
 		}catch(EmptyResultDataAccessException e){
 			usuario = new Usuario();
+			System.out.println("falla1 por el DAO");
 		}catch (Exception e){
-			
+			System.out.println("falla2 por el DAO");
+		}
+		System.out.println("pasa por el DAO");*/
+		
+		Usuario usuario = null;
+
+		final String SQL = "SELECT idUsuario, nombre, apellidos, password, email, fNacimiento FROM usuario WHERE idUsuario=?";
+		try {
+			usuario = jdbcTemplate.queryForObject(SQL, new Object[] { id }, new UsuarioMapper());
+		} catch (EmptyResultDataAccessException e) {
+			usuario = new Usuario();
+		} catch (Exception e) {
+
 		}
 		return usuario;
 	}

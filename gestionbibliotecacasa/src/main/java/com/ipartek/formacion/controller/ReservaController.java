@@ -34,7 +34,7 @@ public class ReservaController {
 	 * con inner join especiales a las reservas. lo mismo con los ejemplares.
 	 * 
 	 */
-	private static final Logger logger = LoggerFactory.getLogger(LibroController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ReservaController.class);
 	private ModelAndView mav = null;
 	
 	@Autowired
@@ -50,13 +50,13 @@ public class ReservaController {
 	public ModelAndView getAllEjemplaresDisponibles(@PathVariable("id") int id) {
 		
 		mav = new ModelAndView("reservas/listado");
-		List<Ejemplar> ejemplares = ejem.getAllDisponible();
-		Usuario usuario = usu.getByID(id);
+		Ejemplar ejemplar = ejem.getEjemplarReservado(id);
+		//List<Ejemplar> ejemplares = ejem.getAllDisponible();
+		ejemplar.setUsuario(usu.getByID(id));
 		System.out.println(id);
-		System.out.println(usuario.getId());
-		mav.addObject("listado-ejemplares", ejemplares);
+		mav.addObject("ejemplar", ejemplar);
+		//mav.addObject("listado-ejemplares", ejemplares);
 		mav.addObject("id",id);
-		mav.addObject("usuario", usuario);
 		return mav;
 	}
 	
@@ -67,12 +67,7 @@ public class ReservaController {
 		System.out.println(idusuario);
 		System.out.println(idejemplar);
 		Ejemplar ejemplar = ejem.getByID(idusuario);
-		Usuario usuario = usu.getByID(idejemplar);
-		usuario.setIdEjemplar(idejemplar);
-		usu.update(usuario);
-		contador = ejemplar.getContador();
 		contador = contador -1;
-		ejemplar.setContador(contador);
 		ejem.update(ejemplar);
 		mav = new ModelAndView("usuarios/listado");
 		List<Usuario> usuarios = usu.getAll();

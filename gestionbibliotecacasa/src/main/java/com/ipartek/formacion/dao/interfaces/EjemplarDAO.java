@@ -21,4 +21,6 @@ public interface EjemplarDAO {
 	public void delete(int id);
 	
 	public void setDataSource(DataSource dataSource);
+
+	public Ejemplar getEjemplarReservado(int id);
 }

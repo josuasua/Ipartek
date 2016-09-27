@@ -17,8 +17,10 @@ import org.springframework.stereotype.Repository;
 import com.ipartek.formacion.dao.interfaces.EjemplarDAO;
 import com.ipartek.formacion.dao.mappers.EjemplarMapper;
 import com.ipartek.formacion.dao.mappers.LibroMapper;
+import com.ipartek.formacion.dao.mappers.UsuarioMapper;
 import com.ipartek.formacion.dao.persistence.Ejemplar;
 import com.ipartek.formacion.dao.persistence.Libro;
+import com.ipartek.formacion.dao.persistence.Usuario;
 
 @Repository
 public class EjemplarDAOImp implements EjemplarDAO {
@@ -41,6 +43,7 @@ public class EjemplarDAOImp implements EjemplarDAO {
 	@Override
 	public List<Ejemplar> getAll() {
 		List<Ejemplar> ejemplares = null;
+		/*
 		jdbcCall.withProcedureName("getAllEjemplar");
 		SqlParameterSource in = new MapSqlParameterSource();
 		try{
@@ -50,6 +53,16 @@ public class EjemplarDAOImp implements EjemplarDAO {
 			ejemplares = new ArrayList<Ejemplar>();
 		}catch (Exception e){
 			
+		}
+		*/
+		final String SQL = "SELECT e.idEjemplar, e.editorial, e.numeropaginas, l.titulo, l.autor FROM ejemplar e INNER JOIN libro l ON e.idLibro=l.idLibro";
+		try {
+			ejemplares = jdbcTemplate.query(SQL, new EjemplarMapper());
+		}catch(EmptyResultDataAccessException e){
+			ejemplares = new ArrayList<Ejemplar>();
+			System.out.println("falla");
+		}catch (Exception e){
+			System.out.println("falla");
 		}
 		return ejemplares;
 	}
@@ -72,6 +85,7 @@ public class EjemplarDAOImp implements EjemplarDAO {
 
 	@Override
 	public Ejemplar getByID(int id) {
+		/*
 		jdbcCall.withProcedureName("getbyIDEjemplar");
 		Ejemplar ejemplar = null;
 		SqlParameterSource in = new MapSqlParameterSource().addValue("id", id);
@@ -83,6 +97,18 @@ public class EjemplarDAOImp implements EjemplarDAO {
 		}catch (Exception e){
 			
 		}
+		return ejemplar;
+		*/
+		Ejemplar ejemplar = null;
+		final String SQL = "SELECT e.idEjemplar, e.editorial, e.numeropaginas, l.autor, l.titulo FROM ejemplar e INNER JOIN libro l ON e.idLibro= l.idLibro WHERE idEjemplar = ?";
+		try {
+			ejemplar = jdbcTemplate.queryForObject(SQL, new Object[] { id }, new EjemplarMapper());
+		}catch(EmptyResultDataAccessException e){
+			ejemplar = new Ejemplar();
+		}catch (Exception e){
+			
+		}
+		
 		return ejemplar;
 	}
 
@@ -109,6 +135,24 @@ public class EjemplarDAOImp implements EjemplarDAO {
 
 	}
 
+	@Override
+	public Ejemplar getEjemplarReservado(int id) {
+		Ejemplar ejemplar = null;
+		
+		final String SQL = "SELECT e.idEjemplar, l.titulo, l.autor, e.editorial, e.numeropaginas FROM ejemplar e INNER JOIN libro l ON e.idLibro=l.idLibro WHERE e.idUsuario = ?";
+		try {
+			ejemplar = jdbcTemplate.queryForObject(SQL, new Object[] { id }, new EjemplarMapper());
+		}catch(EmptyResultDataAccessException e){
+			ejemplar = new Ejemplar();
+			System.out.println("falla result data");
+		}catch (Exception e){
+			ejemplar = new Ejemplar();
+		}
+		
+		return ejemplar;
+	}
+	
+	
 	@Override
 	public List<Ejemplar> getAllDisponibles() {
 		List<Ejemplar> ejemplares = null;
