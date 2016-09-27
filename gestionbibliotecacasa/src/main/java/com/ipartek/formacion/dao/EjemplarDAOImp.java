@@ -144,9 +144,8 @@ public class EjemplarDAOImp implements EjemplarDAO {
 			ejemplar = jdbcTemplate.queryForObject(SQL, new Object[] { id }, new EjemplarMapper());
 		}catch(EmptyResultDataAccessException e){
 			ejemplar = new Ejemplar();
-			System.out.println("falla result data");
+			System.out.println("No tiene ningun ejemplar reservado");
 		}catch (Exception e){
-			ejemplar = new Ejemplar();
 		}
 		
 		return ejemplar;

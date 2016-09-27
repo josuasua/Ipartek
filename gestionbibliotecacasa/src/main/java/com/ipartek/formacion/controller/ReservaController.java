@@ -50,13 +50,19 @@ public class ReservaController {
 	public ModelAndView getAllEjemplaresDisponibles(@PathVariable("id") int id) {
 		
 		mav = new ModelAndView("reservas/listado");
-		Ejemplar ejemplar = ejem.getEjemplarReservado(id);
-		//List<Ejemplar> ejemplares = ejem.getAllDisponible();
-		ejemplar.setUsuario(usu.getByID(id));
-		System.out.println(id);
-		mav.addObject("ejemplar", ejemplar);
-		//mav.addObject("listado-ejemplares", ejemplares);
-		mav.addObject("id",id);
+		List<Ejemplar> ejemplares = null;
+		Ejemplar ejemplar = null;
+		Usuario usuario = null;
+		ejemplar = ejem.getEjemplarReservado(id);
+		if (ejemplar.getId()>0){
+			ejemplar.setUsuario(usu.getByID(id));
+			mav.addObject("ejemplar", ejemplar);
+		} else{
+			ejemplares = ejem.getAllDisponible();	
+			mav.addObject("listado-ejemplares", ejemplares);
+			usuario = usu.getByID(id);
+			mav.addObject("usuario", usuario);
+		}
 		return mav;
 	}
 	

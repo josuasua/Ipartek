@@ -53,12 +53,8 @@ Esto hace que tarde más en cargar, pero puede ser interesante a la larga -->
 						<div class="col-xs-3"> <%=ejemplar1.getTitulo() %></div>
 						<div class="col-xs-3"> <%=ejemplar1.getEditorial() %></div>
 						<div class="col-xs-1"> <%=ejemplar1.getNumeropaginas() %></div>
-						<c:if test="${ejemplar1.usuario.id > 0}">
-							<div class="col-xs-1"><a class="devolver btn btn-success" href="reservas/devolverLibro/${usuario.id}/<%=ejemplar.getId() %>">Devolver libro</a></div>					
-						</c:if>
-						<c:if test="${ejemplar1.usuario.id == 0}">
-							<div class="col-xs-1"><a class="reservar btn btn-success" href="reservas/reservarLibro/${usuario.id}/<%=ejemplar.getId() %>">Reservar libro</a></div>
-						</c:if>
+						<div class="col-xs-1"><a class="reservar btn btn-success" href="reservas/reservarLibro/${usuario.id}/<%=ejemplar1.getId() %>">Reservar libro</a></div>
+
 					</div>
 
 			<%}
